@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven_3.9.11'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -8,21 +12,20 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Build') {
             steps {
                 echo 'Building project...'
-                bat 'mvn clean package'
+                withMaven(maven: 'Maven_3.9.11') {
+                    bat 'mvn clean package'
+                }
             }
         }
-
         stage('Docker Build') {
             steps {
                 echo 'Building Docker image...'
                 bat 'docker build -t demo-app .'
             }
         }
-
         stage('Docker Run') {
             steps {
                 echo 'Running Docker container...'
