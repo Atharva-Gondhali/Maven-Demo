@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven_3.9'
+        maven 'Maven 3.9'
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building project...'
-                withMaven(maven: 'Maven_3.9') {
+                withMaven(maven: 'Maven 3.9') {
                     bat 'mvn clean package'
                 }
             }
